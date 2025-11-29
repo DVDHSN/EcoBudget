@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoBudget</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Raleway:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .material-symbols-outlined.filled {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      
+      /* Liquid Ambient Animations */
+      @keyframes liquid-drift-1 {
+        0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        33% { transform: translate(10%, -10%) rotate(10deg) scale(1.1); }
+        66% { transform: translate(-5%, 15%) rotate(-5deg) scale(0.95); }
+        100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      }
+      
+      @keyframes liquid-drift-2 {
+        0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        33% { transform: translate(-15%, 5%) rotate(-10deg) scale(0.9); }
+        66% { transform: translate(10%, -15%) rotate(15deg) scale(1.15); }
+        100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      }
+
+      @keyframes liquid-drift-3 {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(5%, 10%) scale(1.2); }
+        100% { transform: translate(0, 0) scale(1); }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-6px); }
+      }
+
+      @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+      }
+      
+      @keyframes grow-up {
+        from { transform: scaleY(0); }
+        to { transform: scaleY(1); }
+      }
+
+      @keyframes pop-in {
+        0% { transform: scale(0.9); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      /* Page Transition Animation */
+      @keyframes page-enter {
+        0% { 
+          opacity: 0; 
+          transform: translateY(12px) scale(0.98); 
+          filter: blur(8px); 
+        }
+        100% { 
+          opacity: 1; 
+          transform: translateY(0) scale(1); 
+          filter: blur(0); 
+        }
+      }
+
+      /* Celebration Animations */
+      @keyframes slide-down-bounce {
+        0% { transform: translateY(-150%) scale(0.8); opacity: 0; }
+        60% { transform: translateY(15%) scale(1.02); opacity: 1; }
+        80% { transform: translateY(-5%) scale(0.98); }
+        100% { transform: translateY(0) scale(1); }
+      }
+      
+      @keyframes rotate-slow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      
+      @keyframes confetti-fall {
+        0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+        10% { opacity: 1; }
+        80% { opacity: 1; }
+        100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+      }
+
+      @keyframes zoom-in-bounce {
+        0% { transform: scale(0); opacity: 0; }
+        60% { transform: scale(1.1); opacity: 1; }
+        80% { transform: scale(0.95); }
+        100% { transform: scale(1); }
+      }
+
+      @keyframes text-pop {
+        0% { transform: scale(0.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+
+      /* Classes for the background blobs */
+      .animate-drift-slow {
+        animation: liquid-drift-1 25s ease-in-out infinite;
+      }
+      .animate-drift-medium {
+        animation: liquid-drift-2 20s ease-in-out infinite reverse;
+      }
+      .animate-drift-fast {
+        animation: liquid-drift-3 18s ease-in-out infinite;
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-float-slow {
+        animation: float 8s ease-in-out infinite;
+      }
+      .animate-grow-up {
+        transform-origin: bottom;
+        animation: grow-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .animate-pop-in {
+        animation: pop-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+      .animate-page-enter {
+        animation: page-enter 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      }
+      
+      .animate-slide-down {
+        animation: slide-down-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      .animate-rotate-slow {
+        animation: rotate-slow 30s linear infinite;
+      }
+      .animate-zoom-in-bounce {
+        animation: zoom-in-bounce 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+      .animate-text-pop {
+        animation: text-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      }
+
+      /* Noise Texture for Glass Realism - Subtler grain */
+      .bg-noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 50;
+        opacity: 0.04;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      /* Microinteractions Utility Classes */
+      .hover-lift {
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease-out;
+      }
+      .hover-lift:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.15);
+      }
+      
+      .click-press {
+        transition: transform 0.1s ease-out;
+      }
+      .click-press:active {
+        transform: scale(0.96);
+      }
+
+      .input-glow:focus-within {
+        box-shadow: 0 0 0 2px rgba(201, 166, 70, 0.3), 0 0 15px rgba(201, 166, 70, 0.2);
+      }
+
+      /* Scrollbar */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(168, 159, 133, 0.3);
+        border-radius: 10px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(168, 159, 133, 0.6);
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#A89F85", // Muted Premium Beige
+              "primary-dark": "#8C846F",
+              "gold": "#C9A646", // Gold Accent
+              "background-light": "#F0F0F0", // Neutral Light
+              "background-dark": "#121212", // Charcoal Black
+              "surface-dark": "#1E1E1E", // Graphite Grey
+              "text-main": "#E0DED1", // Soft Off-White
+              "expense": "#E57373",
+              "income": "#A89F85", // Match primary
+            },
+            fontFamily: {
+              "body": ["Inter", "sans-serif"],
+              "heading": ["Raleway", "sans-serif"],
+              "numbers": ["Space Grotesk", "sans-serif"],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+              'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+              'pulse-slow': 'pulse 3s infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@6",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/"
+  }
+}
+</script>
+</head>
+  <body class="bg-background-light dark:bg-background-dark text-gray-900 dark:text-text-main antialiased overflow-hidden font-body selection:bg-gold selection:text-background-dark transition-colors duration-700">
+    <div id="root"></div>
+    <div class="bg-noise"></div>
+  </body>
+</html>
